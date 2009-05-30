@@ -1,0 +1,23 @@
+!!! 1.1
+%html
+  %head
+    %title= yield :title || 'Untitled'
+    = stylesheet_link_tag 'application'
+    = yield :head
+
+  %body
+    
+    #container
+      %ul#menu
+        - Page.root.each do |page|
+          %li=link_to h(page.name), page_path(page)
+      .clear
+
+      - flash.each do |name, msg|
+        = content_tag :div, msg, :id => "flash_#{name}"
+      
+      - if show_title?
+        %h1=h yield(:title)
+      
+      = yield
+      

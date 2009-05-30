@@ -4,11 +4,12 @@ class PagesController < ApplicationController
   end
   
   def show
-    @page = Page.find(params[:id])
+    @page = Page.get(params[:id])
   end
   
   def new
     @page = Page.new
+    @page.parent_id = params[:parent_id] if params[:parent_id]
   end
   
   def create
@@ -22,11 +23,11 @@ class PagesController < ApplicationController
   end
   
   def edit
-    @page = Page.find(params[:id])
+    @page = Page.get(params[:id])
   end
   
   def update
-    @page = Page.find(params[:id])
+    @page = Page.get(params[:id])
     if @page.update_attributes(params[:page])
       flash[:notice] = "Successfully updated page."
       redirect_to @page
@@ -36,7 +37,7 @@ class PagesController < ApplicationController
   end
   
   def destroy
-    @page = Page.find(params[:id])
+    @page = Page.get(params[:id])
     @page.destroy
     flash[:notice] = "Successfully destroyed page."
     redirect_to pages_url

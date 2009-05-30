@@ -1,0 +1,17 @@
+- title "Pages"
+
+%table
+  %tr
+    %th Parent
+    %th Name
+    %th Content
+  - for page in @pages
+    %tr
+      %td=h(page.parent ? page.parent.name : 'None')
+      %td=h page.name
+      %td=h page.content
+      %td= link_to "Show", page_path(page)
+      %td= link_to "Edit", edit_page_path(page)
+      %td= link_to "Destroy", page_path(page), :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Page", new_page_path
